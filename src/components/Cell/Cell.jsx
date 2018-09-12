@@ -1,5 +1,9 @@
 import React from 'react';
 
-export const Cell = () => {
-    return <div>Cell</div>
+import './Cell.css';
+
+export const Cell = (props) => {
+    return <div className="cell" onClick={() => props.onClick}>
+        {props.value} x
+    </div>
 }

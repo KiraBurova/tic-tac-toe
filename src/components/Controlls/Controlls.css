@@ -1,0 +1,10 @@
+.controlls {
+    display: flex;
+}
+
+.controlls__button {
+    width: 20px;
+    height: 20px;
+    border: 1px solid black;
+    cursor: pointer;
+}

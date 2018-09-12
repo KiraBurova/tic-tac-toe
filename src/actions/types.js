@@ -1,0 +1,3 @@
+export const CHOOSE_PLAYER = 'CHOOSE_PLAYER';
+export const TAKE_TURN = 'TAKE_TURN';
+export const CONSTRUCT_BOARD = 'CONSTRUCT_BOARD';
