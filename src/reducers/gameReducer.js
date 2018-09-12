@@ -1,4 +1,4 @@
-import {CONSTRUCT_BOARD, CHOOSE_PLAYER, TAKE_TURN} from '../actions/types';
+import {CONSTRUCT_BOARD, CHOOSE_PLAYER, TAKE_TURN, RESTART_GAME} from '../actions/types';
 
 const initialState = {
     board: [],
@@ -24,10 +24,18 @@ export default function (state = initialState, action) {
             }
         }
         case TAKE_TURN: {
-            console.log(state)
             return {
                 ...state,
-                board: state.board[action.payload] = state.player
+                board: state.board.map((item, index) => index === action.index ? item = action.player : item)
+            }
+        }
+        case RESTART_GAME : {
+            return {
+                ...state,
+                board: [],
+                player: '',
+                computer: '',
+                gameStarted: false
             }
         }
         default: return state

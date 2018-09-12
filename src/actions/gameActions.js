@@ -1,4 +1,4 @@
-import {CONSTRUCT_BOARD, CHOOSE_PLAYER, TAKE_TURN} from './types'
+import {CONSTRUCT_BOARD, CHOOSE_PLAYER, TAKE_TURN, RESTART_GAME} from './types'
 
 export const constructBoard = (boxes) => async dispatch => {
     dispatch({
@@ -19,10 +19,16 @@ export const choosePlayer = (player) => async dispatch => {
     })
 }
 
-export const takeTurn = (index) => async dispatch => {
-    console.log(1)
+export const takeTurn = (index, player) => async dispatch => {
     dispatch({
         type: TAKE_TURN,
-        payload: index
+        index: index,
+        player: player
+    })
+}
+
+export const restartGame = () => async dispatch => {
+    dispatch({
+        type: RESTART_GAME
     })
 }

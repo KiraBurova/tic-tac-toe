@@ -11,6 +11,7 @@ class App extends Component {
     return (
       <Provider store={store}>
         <div className="App">
+          <h1>Крестики - нолики</h1>
           <RootContainer />
         </div>
       </Provider>

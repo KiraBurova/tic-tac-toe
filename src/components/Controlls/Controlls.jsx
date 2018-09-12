@@ -11,8 +11,11 @@ class Controlls extends Component {
     }
     render () {
         return <div className="controlls">
-                <div className="controlls__button" onClick={() => this.choosePlayer('X')}>X</div>
-                <div className="controlls__button" onClick={() => this.choosePlayer('O')}>O</div>
+                <h4>X или O?</h4>
+                <div className="controlls__buttons">
+                    <div className="controlls__button" onClick={() => this.choosePlayer('X')}>X</div>
+                    <div className="controlls__button" onClick={() => this.choosePlayer('O')}>O</div>
+                </div>
             </div>
     }
 }
