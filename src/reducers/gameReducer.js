@@ -1,8 +1,9 @@
-import {CONSTRUCT_BOARD, CHOOSE_PLAYER, TAKE_TURN, RESTART_GAME} from '../actions/types';
+import {CONSTRUCT_BOARD, CHOOSE_PLAYER, TAKE_TURN, RESTART_GAME, FINISH_GAME} from '../actions/types';
 
 const initialState = {
     board: [],
     gameStarted: false,
+    gameFinished: false,
     player: '',
     computer: ''
 }
@@ -36,6 +37,12 @@ export default function (state = initialState, action) {
                 player: '',
                 computer: '',
                 gameStarted: false
+            }
+        }
+        case FINISH_GAME : {
+            return {
+                ...state,
+                gameFinished: true
             }
         }
         default: return state
