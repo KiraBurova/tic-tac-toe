@@ -15,7 +15,6 @@ class Board extends Component {
         this.width = 3;
         this.height = 3;
         this.boxes = this.width * this.height;
-        this.gameFinished = false;
         this.winner = null;
     }
     componentDidMount() {
@@ -61,7 +60,6 @@ class Board extends Component {
     render() {
         this.checkWin();
         if(this.checkWin()) {
-            this.gameFinished = true;
             this.winner = this.checkWin();
         }
 
@@ -73,7 +71,7 @@ class Board extends Component {
                 })}
             </div>
             <Restart onClick={() => this.restartGame()}/>
-            {this.gameFinished ? <h1>Победитель игрок {this.winner}! <br/> Начните игру заново</h1> : ''}
+            {this.winner ? <h1>Победитель игрок {this.winner}! <br/> Начните игру заново</h1> : ''}
             </div>
         )
     }
