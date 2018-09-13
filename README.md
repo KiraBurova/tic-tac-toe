@@ -1,5 +1,5 @@
-react + redux tic-tac-toe game
+**react + redux tic-tac-toe game**
 
-cd tic-tac-toe
-npm install
-npm start
+- cd tic-tac-toe
+- npm install
+- npm start
