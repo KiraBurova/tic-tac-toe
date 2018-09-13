@@ -11,9 +11,11 @@
     "redux": "^4.0.0",
     "redux-thunk": "^2.3.0"
   },
+  "homepage": "https://KiraBurova.github.io/tic-tac-toe",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "deploy": "gh-pages -d build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
