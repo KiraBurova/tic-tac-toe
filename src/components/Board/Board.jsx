@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 
+import PropTypes from 'prop-types';
+
 import { connect } from 'react-redux';
 
 import {Cell} from '../Cell/Cell';
@@ -7,7 +9,7 @@ import {Restart} from '../Restart/Restart';
 
 import {constructBoard, takeTurn, restartGame, finishGame} from '../../actions/gameActions';
 
-import './Board.css'
+import './Board.css';
 
 class Board extends Component {
     constructor() {
@@ -20,36 +22,44 @@ class Board extends Component {
     componentDidMount() {
         this.props.constructBoard(this.boxes);
     }
-    userTurn (index) {
-        if(this.props.gameFinished) {return}
+    userTurn(index) {
+        if(this.winner) { return; }
         if(this.props.board[index] === '') {
             this.props.takeTurn(index, this.props.player);
             this.computerTurn();
         }
     }
     computerTurn() {
-        const randomNumber =  Math.floor(Math.random() * 10);
-
-        if(this.props.board[randomNumber] === '') {
-            this.props.takeTurn(randomNumber, this.props.computer);
+        let cells = [];
+        for(let i = 0; i < this.props.board.length; i++) {
+            if(this.props.board[i] === '') cells.push(i);
         }
+        const randomNumber = Math.floor(Math.random() * cells.length);
+        this.props.takeTurn(cells[randomNumber], this.props.computer);
+        // const randomNumber =  Math.floor(Math.random() * 10);
+
+        // if(this.props.board[randomNumber] === '') {
+        //     this.props.takeTurn(randomNumber, this.props.computer);
+        // } else {
+        //     this.computerTurn();
+        // }
     }
     checkWin() {
         //horizontal
-        for(let i = 0; i < 9; i++) {
-            if(this.props.board[i] === this.props.board[i+1] && this.props.board[i+1]===this.props.board[i+2]&&this.props.board[i]) {
+        for(let i = 0; i < this.boxes; i++) {
+            if(this.props.board[i] === this.props.board[i + 1] && this.props.board[i + 1] === this.props.board[i + 2] && this.props.board[i]) {
                 return this.props.board[i];
             }
         }
         //vertical
-        for(let i = 0; i<3; i++){
-            if (this.props.board[i] === this.props.board[i+3] && this.props.board[i+3] === this.props.board[i+6] && this.props.board[i])
+        for(let i = 0; i < this.height; i++) {
+            if(this.props.board[i] === this.props.board[i + 3] && this.props.board[i + 3] === this.props.board[i + 6] && this.props.board[i])
                 return this.props.board[i];
         }
         //diagonal
-        if (this.props.board[0] === this.props.board[4] && this.props.board[4] === this.props.board[8] && this.props.board[0])
+        if(this.props.board[0] === this.props.board[4] && this.props.board[4] === this.props.board[8] && this.props.board[0])
             return this.props.board[0];
-        if (this.props.board[2] === this.props.board[4] && this.props.board[4] === this.props.board[6] && this.props.board[2])
+        if(this.props.board[2] === this.props.board[4] && this.props.board[4] === this.props.board[6] && this.props.board[2])
             return this.props.board[2];
 
         return false;
@@ -62,18 +72,17 @@ class Board extends Component {
         if(this.checkWin()) {
             this.winner = this.checkWin();
         }
-
         return (
             <div>
-            <div className="board">
-                {this.props.board.map((box, index) => {
-                    return  <Cell key={index} value={box} onClick={() => {this.userTurn(index)}}/>
-                })}
+                <div className="board">
+                    {this.props.board.map((box, index) => {
+                        return  <Cell key={index} value={box} onClick={() => { this.userTurn(index) ; }}/>;
+                    })}
+                </div>
+                <Restart onClick={() => this.restartGame()}/>
+                {this.winner ? <h1>Победитель игрок {this.winner}! <br/> Начните игру заново</h1> : ''}
             </div>
-            <Restart onClick={() => this.restartGame()}/>
-            {this.winner ? <h1>Победитель игрок {this.winner}! <br/> Начните игру заново</h1> : ''}
-            </div>
-        )
+        );
     }
 }
 
@@ -82,6 +91,16 @@ const mapStateToProps = (state) => ({
     computer: state.data.computer,
     board: state.data.board,
     gameFinished: state.data.gameFinished
-})
+});
+
+Board.propTypes = {
+    constructBoard: PropTypes.func.isRequired,
+    takeTurn: PropTypes.func.isRequired,
+    restartGame: PropTypes.func.isRequired,
+    board: PropTypes.array.isRequired,
+    player: PropTypes.string.isRequired,
+    computer: PropTypes.string.isRequired
+};
+
 
 export default connect(mapStateToProps, {constructBoard, takeTurn, restartGame, finishGame})(Board);
