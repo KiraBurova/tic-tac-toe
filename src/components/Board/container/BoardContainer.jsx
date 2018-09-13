@@ -13,6 +13,7 @@ class BoardContainer extends Component {
         this.height = 3;
         this.boxes = this.width * this.height;
         this.winner = null;
+        this.draw = null;
     }
     componentDidMount() {
         this.props.constructBoard(this.boxes);
@@ -32,11 +33,6 @@ class BoardContainer extends Component {
         }
         const randomNumber = Math.floor(Math.random() * cells.length);
         this.props.takeTurn(cells[randomNumber], this.props.computer);
-    }
-    addWinnerClass(...args) {
-        const cells = document.querySelectorAll('.cell');
-
-        return args.map(arg => cells[arg].classList.add('winner'));
     }
     checkWin() {
         //horizontal
@@ -65,16 +61,38 @@ class BoardContainer extends Component {
 
         return false;
     }
+    addWinnerClass(...args) {
+        const cells = document.querySelectorAll('.cell');
+
+        return args.map(arg => cells[arg].classList.add('winner'));
+    }
+    composeWinnerMessage() {
+        if(this.props.player === this.winner) {
+            this.winner = ' Вы победили! (игрок ' + this.winner + ')';
+        } else {
+            this.winner = ' Вы проиграли! (победил игрок ' + this.winner + ')';
+        }
+    }
+    checkStatusOfGame() {
+        this.checkWin();
+
+        if(this.checkWin()) {
+            this.winner = this.checkWin();
+            this.composeWinnerMessage();
+        }
+
+        if(!this.checkWin()) {
+            this.draw = this.props.board.every(element => element !== '');
+        }
+    }
     restartGame() {
         this.props.restartGame();
     }
     render() {
-        this.checkWin();
-        if(this.checkWin()) {
-            this.winner = this.checkWin();
-        }
+        this.checkStatusOfGame();
+
         return (
-            <Board board={this.props.board} winner={this.winner} playerTurn={(index) => this.playerTurn(index)} restartGame={() => this.restartGame()}/>
+            <Board board={this.props.board} draw={this.draw} winner={this.winner} playerTurn={(index) => this.playerTurn(index)} restartGame={() => this.restartGame()}/>
         );
     }
 }
