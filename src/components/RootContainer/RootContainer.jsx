@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
-import Board from '../Board/Board';
 import Controlls from '../Controlls/Controlls';
+import BoardContainer from '../Board/container/BoardContainer';
 
 class RootContainer extends Component {
     render() {
         const gameStarted = this.props.gameStarted;
 
         return (
-            gameStarted ? <Board /> : <Controlls />
+            gameStarted ? <BoardContainer /> : <Controlls />
         );
     }
 }
