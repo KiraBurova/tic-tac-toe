@@ -27,7 +27,7 @@ export default function(state = initialState, action) {
     case TAKE_TURN: {
         return {
             ...state,
-            board: state.board.map((item, index) => index === action.index ? item = action.player : item)
+            board: state.board.map((item, index) => index === action.index && item === '' ? item = action.player : item)
         };
     }
     case RESTART_GAME : {

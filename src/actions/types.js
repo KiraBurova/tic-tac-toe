@@ -1,5 +1,5 @@
+export const CONSTRUCT_BOARD = 'CONSTRUCT_BOARD';
 export const CHOOSE_PLAYER = 'CHOOSE_PLAYER';
 export const TAKE_TURN = 'TAKE_TURN';
-export const CONSTRUCT_BOARD = 'CONSTRUCT_BOARD';
 export const RESTART_GAME = 'RESTART_GAME';
 export const FINISH_GAME = 'FINISH_GAME';

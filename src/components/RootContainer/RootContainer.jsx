@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
+
 import Board from '../Board/Board';
 import Controlls from '../Controlls/Controlls';
 
@@ -12,10 +14,14 @@ class RootContainer extends Component {
             gameStarted ? <Board /> : <Controlls />
         );
     }
-  }
-  
-  const mapStateToProps = (state) => ({
+}
+
+const mapStateToProps = (state) => ({
     gameStarted: state.data.gameStarted
-  })
-  
-  export default connect(mapStateToProps)(RootContainer);
+});
+
+RootContainer.propTypes = {
+    gameStarted: PropTypes.bool.isRequired
+};
+
+export default connect(mapStateToProps)(RootContainer);

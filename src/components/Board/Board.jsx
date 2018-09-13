@@ -1,13 +1,11 @@
 import React, {Component} from 'react';
-
 import PropTypes from 'prop-types';
-
 import { connect } from 'react-redux';
 
-import {Cell} from '../Cell/Cell';
-import {Restart} from '../Restart/Restart';
+import { Cell } from '../Cell/Cell';
+import { Restart } from '../Restart/Restart';
 
-import {constructBoard, takeTurn, restartGame, finishGame} from '../../actions/gameActions';
+import { constructBoard, takeTurn, restartGame, finishGame } from '../../actions/gameActions';
 
 import './Board.css';
 
@@ -26,6 +24,7 @@ class Board extends Component {
         if(this.winner) { return; }
         if(this.props.board[index] === '') {
             this.props.takeTurn(index, this.props.player);
+            console.log(1);
             this.computerTurn();
         }
     }
@@ -35,14 +34,8 @@ class Board extends Component {
             if(this.props.board[i] === '') cells.push(i);
         }
         const randomNumber = Math.floor(Math.random() * cells.length);
+        console.log(2);
         this.props.takeTurn(cells[randomNumber], this.props.computer);
-        // const randomNumber =  Math.floor(Math.random() * 10);
-
-        // if(this.props.board[randomNumber] === '') {
-        //     this.props.takeTurn(randomNumber, this.props.computer);
-        // } else {
-        //     this.computerTurn();
-        // }
     }
     checkWin() {
         //horizontal
@@ -101,6 +94,5 @@ Board.propTypes = {
     player: PropTypes.string.isRequired,
     computer: PropTypes.string.isRequired
 };
-
 
 export default connect(mapStateToProps, {constructBoard, takeTurn, restartGame, finishGame})(Board);
