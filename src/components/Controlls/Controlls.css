@@ -17,8 +17,13 @@
     height: 50px;
     border: 1px solid black;
     cursor: pointer;
+    transition: all 0.2s ease-in-out;
 }
 
 .controlls__button:first-child {
     margin-right: 5px;
+}
+
+.controlls__button:hover {
+    background: lightseagreen;
 }

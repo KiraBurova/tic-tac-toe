@@ -14,10 +14,8 @@ const Board = (props)  => {
     const winner = props.winner ? <h4>Победитель игрок {props.winner}!</h4> : '';
 
     return (
-        <div>
-            <div className="board">
-                {board}
-            </div>
+        <div className="board-container">
+            <div className="board">{board}</div>
             <Restart onClick={() => props.restartGame()}/>
             {winner}
         </div>

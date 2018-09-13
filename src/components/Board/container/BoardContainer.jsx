@@ -27,29 +27,41 @@ class BoardContainer extends Component {
     }
     computerTurn() {
         let cells = [];
-        for(var i = 0; i <= this.props.board.length; i++) {
+        for(let i = 0; i <= this.props.board.length; i++) {
             if(this.props.board[i] === '') { cells.push(i); }
         }
         const randomNumber = Math.floor(Math.random() * cells.length);
         this.props.takeTurn(cells[randomNumber], this.props.computer);
     }
+    addWinnerClass(...args) {
+        const cells = document.querySelectorAll('.cell');
+
+        return args.map(arg => cells[arg].classList.add('winner'));
+    }
     checkWin() {
         //horizontal
-        for(let i = 0; i < this.boxes; i++) {
+        for(let i = 0; i < this.boxes; i += 3) {
             if(this.props.board[i] === this.props.board[i + 1] && this.props.board[i + 1] === this.props.board[i + 2] && this.props.board[i]) {
+                this.addWinnerClass(i, i + 1, i + 2);
                 return this.props.board[i];
             }
         }
         //vertical
         for(let i = 0; i < this.height; i++) {
-            if(this.props.board[i] === this.props.board[i + 3] && this.props.board[i + 3] === this.props.board[i + 6] && this.props.board[i])
+            if(this.props.board[i] === this.props.board[i + 3] && this.props.board[i + 3] === this.props.board[i + 6] && this.props.board[i]) {
+                this.addWinnerClass(i, i + 3, i + 6);
                 return this.props.board[i];
+            }
         }
         //diagonal
-        if(this.props.board[0] === this.props.board[4] && this.props.board[4] === this.props.board[8] && this.props.board[0])
+        if(this.props.board[0] === this.props.board[4] && this.props.board[4] === this.props.board[8] && this.props.board[0]) {
+            this.addWinnerClass(0, 4, 8);
             return this.props.board[0];
-        if(this.props.board[2] === this.props.board[4] && this.props.board[4] === this.props.board[6] && this.props.board[2])
+        }
+        if(this.props.board[2] === this.props.board[4] && this.props.board[4] === this.props.board[6] && this.props.board[2]) {
+            this.addWinnerClass(2, 4, 6);
             return this.props.board[2];
+        }
 
         return false;
     }
